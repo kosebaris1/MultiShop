@@ -2,7 +2,7 @@
 {
     public class ResultProductDto
     {
-        public string productId { get; set; }
+        public string ProductId { get; set; }
 
         public string ProductName { get; set; }
         public Decimal ProductPrice { get; set; }
