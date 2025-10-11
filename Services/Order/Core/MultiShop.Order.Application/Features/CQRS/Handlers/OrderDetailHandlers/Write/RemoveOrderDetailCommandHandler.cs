@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MultiShop.Order.Application.Features.CQRS.Commands.OrderDetailCommands;
 using MultiShop.Order.Application.Interfaces;
 using MultiShop.Order.Domain.Entities;
 using System;
@@ -19,9 +20,9 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers
             _mapper = mapper;
         }
 
-        public async Task Handle(int id)
+        public async Task Handle(RemoveOrderDetailCommand command)
         {
-            var value = await _repository.GetByIdAsync(id);
+            var value = await _repository.GetByIdAsync(command.Id);
             await _repository.DeleteAsync(value);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MultiShop.Order.Application.Features.CQRS.Commands.AdressCommands;
 using MultiShop.Order.Application.Interfaces;
 using MultiShop.Order.Domain.Entities;
 using System;
@@ -21,9 +22,9 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Writ
             _mapper = mapper;
         }
 
-        public async Task Handle(int id)
+        public async Task Handle(RemoveAdressCommand command)
         {
-            var value = await _repository.GetByIdAsync(id);
+            var value = await _repository.GetByIdAsync(command.Id);
             await _repository.DeleteAsync(value);
         }
     }
