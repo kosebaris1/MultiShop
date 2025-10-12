@@ -3,6 +3,9 @@ using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Read;
 using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Write;
 using MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers.Read;
 using MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers.Write;
+using MultiShop.Order.Application.Interfaces;
+using MultiShop.Order.Application.Services;
+using MultiShop.Order.Persistence.Repository;
 
 namespace MultiShop.Order.WebApi
 {
@@ -11,6 +14,10 @@ namespace MultiShop.Order.WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddApplicationServices(builder.Configuration);
+
 
             builder.Services.AddScoped<GetAdressQueryHandler>();
             builder.Services.AddScoped<GetAdressByIdQueryHandler>();
