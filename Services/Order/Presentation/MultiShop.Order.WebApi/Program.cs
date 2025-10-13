@@ -1,10 +1,12 @@
 
+using Microsoft.EntityFrameworkCore;
 using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Read;
 using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Write;
 using MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers.Read;
 using MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers.Write;
 using MultiShop.Order.Application.Interfaces;
 using MultiShop.Order.Application.Services;
+using MultiShop.Order.Persistence.Context;
 using MultiShop.Order.Persistence.Repository;
 
 namespace MultiShop.Order.WebApi
@@ -32,6 +34,12 @@ namespace MultiShop.Order.WebApi
             builder.Services.AddScoped<RemoveOrderDetailCommandHandler>();
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            // ? DbContext'i DI sistemine ekle
+            builder.Services.AddDbContext<OrderContext>(options =>
+                options.UseSqlServer(connectionString));
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
