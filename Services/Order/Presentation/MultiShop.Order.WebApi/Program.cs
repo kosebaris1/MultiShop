@@ -5,6 +5,7 @@ using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Write;
 using MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers.Read;
 using MultiShop.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers.Write;
 using MultiShop.Order.Application.Interfaces;
+using MultiShop.Order.Application.Mapping;
 using MultiShop.Order.Application.Services;
 using MultiShop.Order.Persistence.Context;
 using MultiShop.Order.Persistence.Repository;
@@ -17,8 +18,14 @@ namespace MultiShop.Order.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddDbContext<OrderContext>(options =>
+                options.UseSqlServer(connectionString));
+
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 
             builder.Services.AddScoped<GetAdressQueryHandler>();
@@ -33,22 +40,16 @@ namespace MultiShop.Order.WebApi
             builder.Services.AddScoped<UpdateOrderDetailCommandHandler>();
             builder.Services.AddScoped<RemoveOrderDetailCommandHandler>();
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            // ? DbContext'i DI sistemine ekle
-            builder.Services.AddDbContext<OrderContext>(options =>
-                options.UseSqlServer(connectionString));
+          
 
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -56,7 +57,7 @@ namespace MultiShop.Order.WebApi
             }
 
             app.UseHttpsRedirection();
-
+                
             app.UseAuthorization();
 
 

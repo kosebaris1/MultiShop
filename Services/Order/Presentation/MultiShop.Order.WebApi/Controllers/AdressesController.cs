@@ -29,7 +29,7 @@ namespace MultiShop.Order.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> ListAdress()
         {
-          var values =  _getAdressQueryHandler.Handle();
+          var values =await  _getAdressQueryHandler.Handle();
           return Ok(values);
         }
 
