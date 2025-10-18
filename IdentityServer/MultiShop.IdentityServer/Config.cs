@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
 
 namespace MultiShop.IdentityServer;
 
@@ -22,5 +23,43 @@ public static class Config
         new ApiScope("DiscountReadPermission","Reading authority for Discount operations"),
         new ApiScope("OrderFullPermission","Full authority for order operations"),
         new ApiScope("OrderReadPermission","Reading authority for order operations")
+    };
+
+    public static IEnumerable<Client> Clients => new Client[] {
+
+        new Client
+        {
+            ClientId= "MultiShopVisitorId",
+            ClientName= "MultiShop Visitor User",
+            AllowedGrantTypes= GrantTypes.ClientCredentials,
+            ClientSecrets= {new Secret("multishopsecret".Sha256())},
+            AllowedScopes= {"CatalogReadPermission"},
+
+        },
+
+        new Client
+        {
+            ClientId= "MultiShopManagerId",
+            ClientName= "MultiShop Admin User",
+            AllowedGrantTypes= GrantTypes.ClientCredentials,
+            ClientSecrets= {new Secret("multishopsecret".Sha256())},
+            AllowedScopes= {"CatalogReadPermission","CatalogFullPermission"},
+        },
+
+         new Client
+        {
+            ClientId= "MultiShopAdminId",
+            ClientName= "MultiShop Manager User",
+            AllowedGrantTypes= GrantTypes.ClientCredentials,
+            ClientSecrets= {new Secret("multishopsecret".Sha256())},
+            AllowedScopes= {"CatalogReadPermission","CatalogFullPermission","DiscountFullPermission","OrderFullPermission",
+               IdentityServerConstants.LocalApi.ScopeName,
+               IdentityServerConstants.StandardScopes.Email,
+               IdentityServerConstants.StandardScopes.OpenId,
+               IdentityServerConstants.StandardScopes.Profile
+             },
+
+            AccessTokenLifetime= 600
+        }
     };
 }
