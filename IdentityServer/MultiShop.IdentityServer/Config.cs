@@ -8,7 +8,8 @@ public static class Config
     public static IEnumerable<ApiResource> ApiResources => new ApiResource[]{
         new ApiResource("ResourceCatalog") { Scopes ={ "CatalogFullPermission","CatalogReadPermission"}},
         new ApiResource("ResourceDiscount") { Scopes ={ "DiscountFullPermission","DiscountReadPermission"}},
-        new ApiResource("ResourceOrder") { Scopes ={ "OrderFullPermission","OrderReadPermission"}}
+        new ApiResource("ResourceOrder") { Scopes ={ "OrderFullPermission","OrderReadPermission"}},
+        new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
     public static IEnumerable<IdentityResource> IdentityResources => new IdentityResource[]{
        new IdentityResources.OpenId(),
@@ -22,7 +23,9 @@ public static class Config
         new ApiScope("DiscountFullPermission","Full authority for Discount operations"),
         new ApiScope("DiscountReadPermission","Reading authority for Discount operations"),
         new ApiScope("OrderFullPermission","Full authority for order operations"),
-        new ApiScope("OrderReadPermission","Reading authority for order operations")
+        new ApiScope("OrderReadPermission","Reading authority for order operations"),
+        new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
+
     };
 
     public static IEnumerable<Client> Clients => new Client[] {
