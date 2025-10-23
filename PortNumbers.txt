@@ -1,0 +1,4 @@
+IdentitiyMicroservice => 5001 portundan	
+CatalogMicroservice => 7209 portundan
+DiscountMicroservice => 7210 portundan 
+OrderMicroservice => 7211 portundan 

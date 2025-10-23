@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Read;
 using MultiShop.Order.Application.Features.CQRS.Handlers.AdressHandlers.Write;
@@ -17,6 +18,13 @@ namespace MultiShop.Order.WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            {
+                opt.Authority = builder.Configuration["IdentityServerUrl"];
+                opt.Audience = "ResourceOrder";
+                opt.RequireHttpsMetadata = false;
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -57,7 +65,7 @@ namespace MultiShop.Order.WebApi
             }
 
             app.UseHttpsRedirection();
-                
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
