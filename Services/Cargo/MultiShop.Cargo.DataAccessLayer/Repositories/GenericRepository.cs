@@ -17,7 +17,7 @@ namespace MultiShop.Cargo.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public void delete(int id)
+        public void Delete(int id)
         {
            var values= _context.Set<T>().Find(id);
             _context.Set<T>().Remove(values);
@@ -42,7 +42,7 @@ namespace MultiShop.Cargo.DataAccessLayer.Repositories
             _context.SaveChanges();
         }
 
-        public void update(T entity)
+        public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
             _context.SaveChanges();
