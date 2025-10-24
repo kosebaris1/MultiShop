@@ -9,8 +9,8 @@ namespace MultiShop.Cargo.DataAccessLayer.Abstract
     public interface IGenericDal<T> where T : class
     {
         void Insert(T entity);
-        void delete(int id);
-        void update(T entity);
+        void Delete(int id);
+        void Update(T entity);
 
         T GetById(int id);
 
