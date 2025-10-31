@@ -9,6 +9,7 @@ public static class Config
         new ApiResource("ResourceCatalog") { Scopes ={ "CatalogFullPermission","CatalogReadPermission"}},
         new ApiResource("ResourceDiscount") { Scopes ={ "DiscountFullPermission","DiscountReadPermission"}},
         new ApiResource("ResourceOrder") { Scopes ={ "OrderFullPermission","OrderReadPermission"}},
+        new ApiResource("ResourceBasket") { Scopes ={ "BasketFullPermission"}},
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
     public static IEnumerable<IdentityResource> IdentityResources => new IdentityResource[]{
@@ -24,6 +25,7 @@ public static class Config
         new ApiScope("DiscountReadPermission","Reading authority for Discount operations"),
         new ApiScope("OrderFullPermission","Full authority for order operations"),
         new ApiScope("OrderReadPermission","Reading authority for order operations"),
+        new ApiScope("BasketFullPermission","Full authority for basket operations"),
         new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
 
     };
@@ -55,7 +57,7 @@ public static class Config
             ClientName= "MultiShop Manager User",
             AllowedGrantTypes= GrantTypes.ClientCredentials,
             ClientSecrets= {new Secret("multishopsecret".Sha256())},
-            AllowedScopes= {"CatalogReadPermission","CatalogFullPermission","DiscountFullPermission","OrderFullPermission",
+            AllowedScopes= {"CatalogReadPermission","CatalogFullPermission","DiscountFullPermission","OrderFullPermission","BasketFullPermission",
                IdentityServerConstants.LocalApi.ScopeName,
                IdentityServerConstants.StandardScopes.Email,
                IdentityServerConstants.StandardScopes.OpenId,
