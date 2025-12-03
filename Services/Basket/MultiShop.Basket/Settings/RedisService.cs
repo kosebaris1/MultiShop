@@ -9,7 +9,7 @@ namespace MultiShop.Basket.Settings
 
         private ConnectionMultiplexer _connectionMultiplexer;
 
-        public RedisService(int port, string host)
+        public RedisService(string host, int port)
         {
             _port = port;
             _host = host;
